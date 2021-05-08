@@ -4,15 +4,14 @@ import { useFormik } from "formik";
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
+import { initialValues, validationSchema } from './schema';
+
 export default function LoginForm() {
   const userNameRef = useRef(null);
 
   const formik = useFormik({
-    // validationSchema,
-    initialValues: {
-      userName: '',
-      password: ''
-    },
+    initialValues,
+    validationSchema,
 
     onSubmit: (values, { resetForm, setSubmitting }) => {
       alert(JSON.stringify(values));
