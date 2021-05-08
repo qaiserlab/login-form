@@ -1,36 +1,77 @@
 import React from 'react';
+import { useFormik } from "formik";
 
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
 export default function LoginForm() {
+
+  const formik = useFormik({
+    // validationSchema,
+    initialValues: {
+      userName: '',
+      password: ''
+    },
+
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      alert(JSON.stringify(values));
+      resetForm();
+      setSubmitting(false);
+    }
+  });
+
+  const handleReset = () => {
+    formik.resetForm();
+  };
+
   return (
-    <React.Fragment>
-      <Row gutter={[10, 20]}>
+    <form onSubmit={formik.handleSubmit}>
+      <Row gutter={[8, 16]}>
         <Col span={6}>Username</Col>
         <Col span={18}>
-          <Input />
+          <Input
+            id="userName"
+            name="userName"
+            placeholder="Username"
+            value={formik.values.userName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.errors.userName && formik.touched.userName && (
+            <div style={{ color: "red" }}>{formik.errors.userName}</div>
+          )}
         </Col>
       
         <Col span={6}>Password</Col>
         <Col span={18}>
-          <Input type={'password'} />
+          <Input
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <div style={{ color: "red" }}>{formik.errors.password}</div>
+          )}
         </Col>
 
         <Col span={6} />
         <Col span={18}>
           <Space>
-            <Button type={'primary'}>
+            <Button htmlType={'submit'} type={'primary'}>
               <LoginOutlined />
               Login
             </Button>
-            <Button htmlType={'reset'}>
+            <Button onClick={handleReset}>
               <UndoOutlined />
               Reset
             </Button>
           </Space>
         </Col>
       </Row>
-    </React.Fragment>
+    </form>
   )
 }
