@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFormik } from "formik";
 
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
 export default function LoginForm() {
+  const userNameRef = useRef(null);
 
   const formik = useFormik({
     // validationSchema,
@@ -20,8 +21,13 @@ export default function LoginForm() {
     }
   });
 
+  useEffect(() => {
+    userNameRef.current.focus();
+  }, []); // Second param empty, mean only execute once time
+
   const handleReset = () => {
     formik.resetForm();
+    userNameRef.current.focus();
   };
 
   return (
@@ -30,9 +36,10 @@ export default function LoginForm() {
         <Col span={6}>Username</Col>
         <Col span={18}>
           <Input
-            id="userName"
-            name="userName"
-            placeholder="Username"
+            ref={userNameRef}
+            id={'userName'}
+            name={'userName'}
+            placeholder={'Username'}
             value={formik.values.userName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
