@@ -1,4 +1,4 @@
-function init() {
+export function AuthStates() {
   return {
     status: {
       token: '',
@@ -17,13 +17,6 @@ function init() {
 
 export function AuthReducer(state, action) {
   switch (action.type) {
-    case 'init':
-      return init();
-    // case 'resetUserInfo':
-    //   return {
-    //     ...state,
-    //     userInfo: { ...action.payload }
-    //   };
     case 'login':
       localStorage.token = action.payload.status.token;
       localStorage.isLogin = action.payload.status.isLogin;
@@ -41,7 +34,7 @@ export function AuthReducer(state, action) {
       localStorage.token = '';
       localStorage.isLogin = '';
 
-      return init();
+      return AuthStates();
     default:
       throw new Error();
   }
