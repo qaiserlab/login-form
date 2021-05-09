@@ -16,7 +16,20 @@ export default function LoginForm() {
     validationSchema,
 
     onSubmit: (values, { resetForm, setSubmitting }) => {
-      alert(JSON.stringify(values));
+      const token = '727f3d03-52e3-43d2-af80-1c3912c45194';
+      const userInfo = {
+        userName: values.userName,
+        email: 'f.anaturdasa@gmail.com',
+      };
+
+      dispatch({
+        type: 'login',
+        payload: {
+          authInfo: { token },
+          userInfo: { userName: 'qaiserlab'}
+        }
+      })
+
       resetForm();
       setSubmitting(false);
     }
@@ -29,14 +42,6 @@ export default function LoginForm() {
   const handleReset = () => {
     formik.resetForm();
     userNameRef.current.focus();
-
-    dispatch({
-      type: 'login',
-      payload: {
-        authInfo: { token: 'ok' },
-        userInfo: { userName: 'qaiserlab'}
-      }
-    })
   };
 
   return (
