@@ -13,9 +13,9 @@ const initialState = {
     lastName: '',
     email: '',
     phoneNumber: '',
-  }
+  },
 };
-const authStore = createContext(initialState);
+const authStore = createContext({ state: {}, dispatch: {} });
 const { Provider } = authStore;
 
 function AuthProvider({ children }: any) {
