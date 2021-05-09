@@ -17,7 +17,7 @@ const initialState = {
 const AuthStore = createContext(initialState);
 const { Provider } = AuthStore;
 
-const AuthProvider = ( { children } ) => {
+function AuthProvider({ children }: any) {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'login':
@@ -50,6 +50,6 @@ const AuthProvider = ( { children } ) => {
       {children}
     </Provider>
   );
-};
+}
 
-export default { AuthStore, AuthProvider }
+export { AuthStore, AuthProvider }

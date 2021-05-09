@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
-import { AuthStore } from './AuthReducer';
+import { AuthStore } from '../AuthReducer';
 import { initialValues, validationSchema } from './schema';
 
 export default function LoginForm() {
-  const [state, dispatch] = React.useContext(AuthStore);
+  const { dispatch } = useContext(AuthStore);
   const userNameRef = useRef(null);
 
   const formik = useFormik({
@@ -30,12 +30,11 @@ export default function LoginForm() {
     formik.resetForm();
     userNameRef.current.focus();
 
-    // alert('dispatch')
     dispatch({
       type: 'login',
       payload: {
         status: { token: 'ok' },
-        userInfo: { userName: 'qaierlab'}
+        userInfo: { userName: 'qaiserlab'}
       }
     })
   };
@@ -86,9 +85,7 @@ export default function LoginForm() {
               <UndoOutlined />
               Reset
             </Button>
-            
           </Space>
-            {JSON.stringify(state)}
         </Col>
       </Row>
     </form>
