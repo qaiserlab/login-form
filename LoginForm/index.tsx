@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import { useFormik } from "formik";
 
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
+import { AuthStore } from './AuthReducer';
 import { initialValues, validationSchema } from './schema';
 
 export default function LoginForm() {
+  const [state, dispatch] = React.useContext(AuthStore);
   const userNameRef = useRef(null);
 
   const formik = useFormik({
@@ -21,12 +23,21 @@ export default function LoginForm() {
   });
 
   useEffect(() => {
-    userNameRef.current.focus();
+    // userNameRef.current.focus();
   }, []); // Second param empty, mean only execute once time
 
   const handleReset = () => {
     formik.resetForm();
     userNameRef.current.focus();
+
+    // alert('dispatch')
+    dispatch({
+      type: 'login',
+      payload: {
+        status: { token: 'ok' },
+        userInfo: { userName: 'qaierlab'}
+      }
+    })
   };
 
   return (
@@ -75,7 +86,9 @@ export default function LoginForm() {
               <UndoOutlined />
               Reset
             </Button>
+            
           </Space>
+            {JSON.stringify(state)}
         </Col>
       </Row>
     </form>
