@@ -15,7 +15,7 @@ const initialState = {
     phoneNumber: '',
   },
 };
-const authStore = createContext(null);
+const authStore = createContext({ state: {}, dispatch: (payload: any) => {} });
 const { Provider } = authStore;
 
 function AuthProvider({ children }: any) {
