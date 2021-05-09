@@ -1,9 +1,10 @@
 import React, {createContext, useReducer} from 'react';
+import { AuthStateInterface, AuthActionInterface } from './schema';
 
 const initialState = {
-  status: {
+  authInfo: {
     token: '',
-    isLogin: false
+    isLogin: false,
   },
   userInfo: {
     userName: '',
@@ -11,23 +12,23 @@ const initialState = {
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
   }
 };
-const AuthStore = createContext(initialState);
-const { Provider } = AuthStore;
+const authStore = createContext(initialState);
+const { Provider } = authStore;
 
 function AuthProvider({ children }: any) {
-  const [state, dispatch] = useReducer((state, action) => {
+  const [state, dispatch] = useReducer((state: AuthStateInterface, action: AuthActionInterface) => {
     switch (action.type) {
       case 'login':
-        localStorage.token = action.payload.status.token;
-        localStorage.isLogin = action.payload.status.isLogin;
+        localStorage.token = action.payload.authInfo.token;
+        localStorage.isLogin = action.payload.authInfo.isLogin;
 
         return {
-          status: {
-            ...state.status,
-            ...action.payload.status,
+          authInfo: {
+            ...state.authInfo,
+            ...action.payload.authInfo,
             isLogin: true
           },
           userInfo: {
@@ -39,7 +40,7 @@ function AuthProvider({ children }: any) {
         localStorage.token = '';
         localStorage.isLogin = '';
 
-        return AuthStates();
+        return initialState;
       default:
         throw new Error();
     }
@@ -52,4 +53,4 @@ function AuthProvider({ children }: any) {
   );
 }
 
-export { AuthStore, AuthProvider }
+export { authStore, AuthProvider }

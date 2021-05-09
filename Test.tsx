@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { AuthStore } from './AuthReducer';
+import { authStore } from './AuthReducer';
 
 export default function Test() {
-  const { state, dispatch } = useContext(AuthStore);
+  const { state, dispatch } = useContext(authStore);
 
   return (
     <section>

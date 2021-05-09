@@ -4,11 +4,11 @@ import { useFormik } from "formik";
 import { Row, Col, Space, Input, Button } from 'antd';
 import { LoginOutlined, UndoOutlined } from "@ant-design/icons";
 
-import { AuthStore } from '../AuthReducer';
+import { authStore } from '../AuthReducer';
 import { initialValues, validationSchema } from './schema';
 
 export default function LoginForm() {
-  const { dispatch } = useContext(AuthStore);
+  const { dispatch } = useContext(authStore);
   const userNameRef = useRef(null);
 
   const formik = useFormik({
@@ -33,7 +33,7 @@ export default function LoginForm() {
     dispatch({
       type: 'login',
       payload: {
-        status: { token: 'ok' },
+        authInfo: { token: 'ok' },
         userInfo: { userName: 'qaiserlab'}
       }
     })
