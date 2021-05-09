@@ -26,7 +26,7 @@ export default function LoginForm() {
         type: 'login',
         payload: {
           authInfo: { token },
-          userInfo: { userName: 'qaiserlab'}
+          userInfo: userInfo,
         }
       })
 
